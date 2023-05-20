@@ -1,9 +1,7 @@
 import styled from "styled-components"
 import logo from "../assets/logo.png"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 export default function Header(){
-    const param = useParams()
-    console.log(param)
     return(
         <Container>
             <Menu>
