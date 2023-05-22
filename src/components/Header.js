@@ -1,15 +1,34 @@
 import styled from "styled-components"
 import logo from "../assets/logo.png"
 import { Link } from "react-router-dom"
-export default function Header(){
-    return(
+import { useContext } from "react"
+import UserName from "../context/UserContext"
+export default function Header() {
+    const { name } = useContext(UserName)
+    console.log(name)
+    if (name) {
+        return (
+            <Container>
+                <WellCome>Seja bem-vindo(a), {name}!</WellCome>
+                <Menu>
+                    <Link to="/me">home</Link>
+                    <Link to="/">ranking</Link>
+                    <Link to="/"onClick={()=>localStorage.clear()}>sair</Link>
+                </Menu>
+                <Logo>
+                    <img alt="Logo da pagina" src={logo} />
+                </Logo>
+            </Container>
+        )
+    }
+    return (
         <Container>
             <Menu>
                 <Link to="/signin">Entrar</Link>
                 <Link to="/signup">Cadastrar-se</Link>
             </Menu>
             <Logo>
-                <img alt="Logo da pagina" src={logo}/>
+                <img alt="Logo da pagina" src={logo} />
             </Logo>
         </Container>
     )
@@ -20,7 +39,9 @@ height: 200px;
 display: flex;
 flex-direction:column;
 justify-content:space-between;
-align-items:flex-end`
+align-items:flex-end;
+position: relative;
+`
 
 const Logo = styled.div`
 width:100%;
@@ -45,4 +66,14 @@ a{
 a:hover{
     color:#5D9040;
 }
+`
+const WellCome = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+color: #5D9040;
+position:absolute;
+left: 270px;
+top: 50px;
 `

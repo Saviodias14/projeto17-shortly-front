@@ -1,27 +1,28 @@
-import styled from "styled-components"
 import Header from "../../components/Header"
-import { useState } from "react"
-import axios from "axios"
 import { ThreeDots } from "react-loader-spinner"
+import styled from "styled-components"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
-export default function SignupPage() {
-    const [name, setName] = useState()
+export default function SigninPage() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [confirmPassword, setConfirmPassword] = useState()
     const [disableButton, setDisableButton] = useState(false)
-    const body = { name, email, password, confirmPassword }
+    const navigate = useNavigate()
+    const body = { email, password }
+
     function handleForm(e) {
         e.preventDefault()
         setDisableButton(true)
-        axios.post(`${process.env.REACT_APP_API_URL}/signup`, body)
+        axios.post(`${process.env.REACT_APP_API_URL}/signin`, body)
             .then((res) => {
                 setDisableButton(false)
-                alert(res.data)
-                setName("")
+                localStorage.setItem("token", res.data.token)
+                console.log(res.data.token)
                 setEmail("")
                 setPassword("")
-                setConfirmPassword("")
+                navigate("/me")
             })
             .catch((err) => {
                 setDisableButton(false)
@@ -32,17 +33,13 @@ export default function SignupPage() {
         <>
             <Header />
             <Container onSubmit={handleForm}>
-                <input placeholder="Nome" type="text" value={name}
-                    disabled={disableButton} onChange={(e) => setName(e.target.value)} required />
                 <input placeholder="Email" type="email" value={email}
                     disabled={disableButton} onChange={(e) => setEmail(e.target.value)} required />
                 <input placeholder="Senha" type="password" value={password}
                     disabled={disableButton} onChange={(e) => setPassword(e.target.value)} required />
-                <input placeholder="Confirmar senha" type="password" value={confirmPassword}
-                    disabled={disableButton} onChange={(e) => setConfirmPassword(e.target.value)} required />
                 <button type="submit" disabled={disableButton}>
                     {disableButton ? <ThreeDots color="#fff" height={60} width={60} timeout={3000} />
-                        : "Criar Conta"}
+                        : "Entrar"}
                 </button>
             </Container>
         </>
