@@ -1,3 +1,3 @@
-const config = { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-config.headers.Authorization.replace(/"/g, '');
+const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+console.log(localStorage.getItem('token'))
 export default config

@@ -19,7 +19,6 @@ export default function ShortLinks({att, setAtt}) {
             .catch((err) => {
                 navigate("/")
                 setName("")
-                localStorage.clear()
                 alert(err.response.data)
             })
     }, [att])

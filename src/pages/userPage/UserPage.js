@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function UserPage() {
     const [att, setAtt] = useState(false)
-   
     return (
         <>
             <Header />

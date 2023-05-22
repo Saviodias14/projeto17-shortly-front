@@ -18,7 +18,7 @@ export default function SigninPage() {
         axios.post(`${process.env.REACT_APP_API_URL}/signin`, body)
             .then((res) => {
                 setDisableButton(false)
-                localStorage.setItem("token", res.data.token)
+                localStorage.setItem('token', res.data.token)
                 console.log(res.data.token)
                 setEmail("")
                 setPassword("")

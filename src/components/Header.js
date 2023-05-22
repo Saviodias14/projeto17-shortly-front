@@ -5,7 +5,6 @@ import { useContext } from "react"
 import UserName from "../context/UserContext"
 export default function Header() {
     const { name } = useContext(UserName)
-    console.log(name)
     if (name) {
         return (
             <Container>
@@ -13,7 +12,10 @@ export default function Header() {
                 <Menu>
                     <Link to="/me">home</Link>
                     <Link to="/">ranking</Link>
-                    <Link to="/"onClick={()=>localStorage.clear()}>sair</Link>
+                    <Link to="/" onClick={()=>{
+                        console.log("oi")
+                        localStorage.removeItem('token')
+                        }}>sair</Link>
                 </Menu>
                 <Logo>
                     <img alt="Logo da pagina" src={logo} />
