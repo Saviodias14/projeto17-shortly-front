@@ -2,7 +2,6 @@ import { FaTrashAlt } from "react-icons/fa";
 import { MyLinks, InfoUrl, DeleteUrl } from "./userStyles";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import config from "../../constants/config";
 import UserName from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 export default function ShortLinks({att, setAtt}) {
@@ -11,7 +10,7 @@ export default function ShortLinks({att, setAtt}) {
     const navigate = useNavigate()
     
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/users/me`, config)
+        axios.get(`${process.env.REACT_APP_API_URL}/users/me`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
             .then((res) => {
                 setMyLinks(res.data)
                 setName(res.data.name)
@@ -24,7 +23,7 @@ export default function ShortLinks({att, setAtt}) {
     }, [att])
 
     function deleteLink(id){
-        axios.delete(`${process.env.REACT_APP_API_URL}/urls/${id}`, config)
+        axios.delete(`${process.env.REACT_APP_API_URL}/urls/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
         .then(()=>{
             alert("Link deletado com sucesso!")
             setAtt(!att)

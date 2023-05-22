@@ -1,18 +1,14 @@
 import { ThreeDots } from "react-loader-spinner";
 import { Search } from "./userStyles";
-import { useEffect, useState } from "react";
-import config from "../../constants/config";
+import {  useState } from "react";
 import axios from "axios";
 export default function SearchCamp({att, setAtt}) {
     const [url, setUrl] = useState()
     const [disableButton, setDisableButton] = useState(false)
-    useEffect(()=>{
-        console.log(config)
-    },[])
     function handleForm(e){
         e.preventDefault()
         setDisableButton(true)
-        axios.post(`${process.env.REACT_APP_API_URL}/urls/shorten`, {url}, config)
+        axios.post(`${process.env.REACT_APP_API_URL}/urls/shorten`, {url}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
         .then((res)=>{
             console.log(res.data)
             setDisableButton(false)

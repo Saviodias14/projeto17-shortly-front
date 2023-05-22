@@ -1,10 +1,16 @@
 import styled from "styled-components"
 import logo from "../assets/logo.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import UserName from "../context/UserContext"
 export default function Header() {
     const { name } = useContext(UserName)
+    const navigate = useNavigate()
+
+    function logout(){
+        localStorage.removeItem('token')
+        navigate("/")
+    }
     if (name) {
         return (
             <Container>
@@ -12,10 +18,7 @@ export default function Header() {
                 <Menu>
                     <Link to="/me">home</Link>
                     <Link to="/">ranking</Link>
-                    <Link to="/" onClick={()=>{
-                        console.log("oi")
-                        localStorage.removeItem('token')
-                        }}>sair</Link>
+                    <a onClick={logout}>sair</a>
                 </Menu>
                 <Logo>
                     <img alt="Logo da pagina" src={logo} />
