@@ -18,7 +18,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/me" element={<UserPage />} />
-          <Route path="/me/open/:link" element={<NewPage/>}/>
+          <Route path="/open/:link" element={<NewPage/>}/>
         </Routes>
       </BrowserRouter>
     </UserName.Provider>

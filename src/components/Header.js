@@ -4,11 +4,12 @@ import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import UserName from "../context/UserContext"
 export default function Header() {
-    const { name } = useContext(UserName)
+    const { name, setName } = useContext(UserName)
     const navigate = useNavigate()
 
     function logout(){
         localStorage.removeItem('token')
+        setName("")
         navigate("/")
     }
     if (name) {
@@ -70,6 +71,7 @@ a{
 }
 a:hover{
     color:#5D9040;
+    cursor: pointer;
 }
 `
 const WellCome = styled.p`

@@ -41,7 +41,7 @@ export default function ShortLinks({att, setAtt}) {
         <div>
 
             {myLinks.shortenedUrls.map((e) => <MyLinks>
-                <InfoUrl onClick={()=>navigate(`/me/open/${e.shortUrl}`)}>
+                <InfoUrl onClick={()=>navigate(`/open/${e.shortUrl}`)}>
                     <p>{e.url}</p>
                     <p>{e.shortUrl}</p>
                     <p>Quantidade de visitantes: {e.visitCount}</p>
