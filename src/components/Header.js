@@ -3,14 +3,22 @@ import logo from "../assets/logo.png"
 import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import UserName from "../context/UserContext"
+import axios from "axios"
 export default function Header() {
     const { name, setName } = useContext(UserName)
     const navigate = useNavigate()
 
-    function logout(){
-        localStorage.removeItem('token')
-        setName("")
-        navigate("/")
+    function logout() {
+        axios.delete(`${process.env.REACT_APP_API_URL}/logout`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+            .then((res) => {
+                localStorage.removeItem('token')
+                setName("")
+                navigate("/")
+            })
+            .catch((err)=>{
+                alert(err)
+            })
+
     }
     if (name) {
         return (
@@ -19,7 +27,7 @@ export default function Header() {
                 <Menu>
                     <Link to="/me">home</Link>
                     <Link to="/">ranking</Link>
-                    <a onClick={logout}>sair</a>
+                    <a onClick={logout}>logout</a>
                 </Menu>
                 <Logo>
                     <img alt="Logo da pagina" src={logo} />

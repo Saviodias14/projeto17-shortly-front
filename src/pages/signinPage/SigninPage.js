@@ -1,7 +1,7 @@
 import Header from "../../components/Header"
 import { ThreeDots } from "react-loader-spinner"
 import styled from "styled-components"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
@@ -11,7 +11,11 @@ export default function SigninPage() {
     const [disableButton, setDisableButton] = useState(false)
     const navigate = useNavigate()
     const body = { email, password }
-
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate("/me")
+        }
+    }, [])
     function handleForm(e) {
         e.preventDefault()
         setDisableButton(true)
